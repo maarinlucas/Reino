@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo"><img src="logo.png" alt=""></div>
+        <h1 class="title">
+            Pergunte aos Representantes</h1>
+
+        <input id="name" class="input" type="text" placeholder="Nome(opcional)" />
+
+        <div class="textarea">
+            <label for="coments">Sua pergunta aqui:</label>
+            <textarea id="coments" class="coments" name="coments">
+
+            </textarea>
+          
+        </div>
+        <p class="aviso">(Arraste a ponta para aumentar o tamanho do formulário)</p>
+        <div class="select">
+            <select id="mensagens" name="mensagens">
+                <option value="" disabled selected>Tipo de pergunta...</option>
+                <option value="Oração">Pedido de Oração</option>
+                <option value="Dúvida">Dúvida Bíblica</option>
+                <option value="Aconselhamento">Conselho</option>
+                <option value="Sugestão">Sugestão de Melhorias/Projetos</option>
+                <option value="Outro">Outro</option>
+            </select>
+        </div>
+
+        <br>
+        <button id="registerBtn" class="btn">Enviar</button>
+
+        <p class="copy">© 2024 Representantes Do Reino. Todos os direitos reservados.</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js';
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7NdmsHN_DoQbYG73eSmKZ1z30TzmD8q8",
+            authDomain: "sjurados-7419f.firebaseapp.com",
+            projectId: "sjurados-7419f",
+            storageBucket: "sjurados-7419f.appspot.com",
+            messagingSenderId: "10558815651",
+            appId: "1:10558815651:web:26ac9f7df3ecc3957eae16",
+            measurementId: "G-FWL86VHD3S",
+            databaseURL: "https://sjurados-7419f-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const handleSaveData = async () => {
+            const name = document.getElementById('name')
+            const coments = document.getElementById('coments').value;
+            const mensagens = document.getElementById('mensagens').value;
+
+            // Obter identificador único do dispositivo
+
+
+            const currentDate = new Date().toLocaleString();
+          
+            const nome = name == '' ? 'Anônimo(a)' : name.value  
+
+        
+           
+
+            try{
+                await set(ref(db, "perguntas/" + `${mensagens}`), {
+                nome: nome,
+                tipoDePergunta: mensagens,
+                pergunta: coments,
+                data: currentDate
+                
+            })
+            alert('Pergunta Enviada!')
+            }catch(error){
+               alert('Falha em enviar a pergunta, tente novamente ou entre em contato com o desenvolvedor!')
+            }   
+
+
+        };
+
+        document.getElementById('registerBtn').addEventListener("click", handleSaveData);
+    </script>
+</body>
+
+</html>
