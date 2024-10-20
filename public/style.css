@@ -87,7 +87,6 @@ label {
 }
 
 .btn {
-    padding: 10px;
     margin: 5px;
     background-color: #075AAE;
     border: none;
@@ -121,7 +120,7 @@ label {
     width: 500px;
     max-width: 500px;
     min-width: 200px;
-    margin: 6px 0 16px 0;
+    margin: 6px 0 6px 0;
     /* Define a largura se necessário */
     justify-content: center;
     display: flex;
@@ -233,9 +232,9 @@ label {
         height: 100%;
         /* Define a altura desejada */
         width: 500px;
-        max-width: 100%;
-        min-width: 100%;
-        margin: 6px 0 16px 0;
+        max-width: 500px;
+        min-width: 200px;
+        margin: 6px 0 6px 0;
         /* Define a largura se necessário */
         justify-content: center;
         display: flex;
