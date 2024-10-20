@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta property="og:title" content="Formulário de perguntas" />
-    <meta property="og:image" content="https://instagram.fcgh4-2.fna.fbcdn.net/v/t51.2885-19/327010076_575372104089013_216381747825316785_n.jpg?stp=dst-jpg_e0_s150x150&_nc_ht=instagram.fcgh4-2.fna.fbcdn.net&_nc_cat=101&_nc_ohc=DYf7ECkVgpsQ7kNvgFiTXax&_nc_gid=527f744d389a44a3a192c3cc373a61b7&edm=AEYEu-QBAAAA&ccb=7-5&oh=00_AYAmQ0ejGAPIFxKKiTxvZE89ZFotsCoQnkbhlZQZpTi_6A&oe=6719C8D5&_nc_sid=ead929" />
+    <meta property="og:image"
+        content="https://instagram.fcgh4-2.fna.fbcdn.net/v/t51.2885-19/327010076_575372104089013_216381747825316785_n.jpg?stp=dst-jpg_e0_s150x150&_nc_ht=instagram.fcgh4-2.fna.fbcdn.net&_nc_cat=101&_nc_ohc=DYf7ECkVgpsQ7kNvgFiTXax&_nc_gid=527f744d389a44a3a192c3cc373a61b7&edm=AEYEu-QBAAAA&ccb=7-5&oh=00_AYAmQ0ejGAPIFxKKiTxvZE89ZFotsCoQnkbhlZQZpTi_6A&oe=6719C8D5&_nc_sid=ead929" />
     <meta property="og:url" content="https://esddsa-9b73f.web.app/" />
     <meta property="og:type" content="website" />
 
@@ -22,14 +23,14 @@
             <div class="logo"><img src="logo.png" alt=""></div>
             <h1 class="title">
                 Mande sua pergunta</h1>
-    
+
             <input id="name" class="input" type="text" placeholder="Nome(opcional)" />
-    
-            <div class="textarea">
-                <label for="coments">Sua pergunta aqui:</label>
-                <textarea id="coments" class="coments" name="coments">
+
+            <div class="coments">
+                <label for="textarea">Sua pergunta aqui:</label>
+                <textarea id="textarea" class="coments" name="coments" cols="30" rows="10">
                 </textarea>
-              
+
             </div>
             <div class="select">
                 <select id="mensagens" name="mensagens">
@@ -41,13 +42,13 @@
                     <option value="Outro">Outro</option>
                 </select>
             </div>
-    
+
             <br>
             <button id="registerBtn" class="btn">Enviar</button>
-    
+
             <p class="copy">© 2024 Representantes Do Reino. Todos os direitos reservados.</p>
         </main>
-       
+
     </div>
 
     <script type="module">
@@ -72,31 +73,38 @@
 
         const handleSaveData = async () => {
             const name = document.getElementById('name')
-            const coments = document.getElementById('coments').value;
+            const coments = document.getElementById('textarea').value;
             const mensagens = document.getElementById('mensagens').value;
+            const textarea = document.getElementById('textarea');
 
-            // Obter identificador único do dispositivo
-
-
-            const currentDate = new Date().toLocaleString();
-          
-            const nome = name == '' ? 'Anônimo(a)' : name.value  
-
-        
            
 
-            try{
+            // Função que posiciona o cursor no início (posição 0)
+            function setCursorToStart(element) {
+                requestAnimationFrame(() => {
+                    element.setSelectionRange(0, 0); // Posiciona o cursor no início
+                });
+            }
+
+            const currentDate = new Date().toLocaleString();
+
+            const nome = name == '' ? 'Anônimo(a)' : name.value
+
+
+
+
+            try {
                 await set(ref(db, "perguntas/" + `${mensagens}`), {
-                nome: nome,
-                tipoDePergunta: mensagens,
-                pergunta: coments,
-                data: currentDate
-                
-            })
-            alert('Pergunta Enviada!')
-            }catch(error){
-               alert('Falha em enviar a pergunta, tente novamente ou entre em contato com o desenvolvedor!')
-            }   
+                    nome: nome,
+                    tipoDePergunta: mensagens,
+                    pergunta: coments,
+                    data: currentDate
+
+                })
+                alert('Pergunta Enviada!')
+            } catch (error) {
+                alert('Falha em enviar a pergunta, tente novamente ou entre em contato com o desenvolvedor!')
+            }
 
 
         };
